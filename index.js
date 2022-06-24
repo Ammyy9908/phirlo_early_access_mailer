@@ -4,6 +4,7 @@ const sendmail = require("./utils/sendmail");
 const sendConsignmentEmail = require("./utils/consignment_mail");
 const cors = require("cors");
 const sendCouponPurchaseEmail = require("./utils/coupon_purchase");
+const sendNonAuthConsignmentMail = require("./utils/non_auth_user_mail");
 dotenv.config();
 const app = express();
 app.use(cors());
@@ -23,9 +24,9 @@ app
     });
   })
   .post("/mail/consignment", (req, res) => {
-    const { email, name } = req.body;
+    const { email, name, consignment_name, qty } = req.body;
 
-    sendConsignmentEmail(email, name)
+    sendConsignmentEmail(email, name, consignment_name, qty)
       .then((is_sented) => {
         console.log(is_sented);
         if (!is_sented) {
@@ -54,6 +55,18 @@ app
         console.log(err);
         res.status(500).json({ message: "Error while sending mail" });
       });
+  })
+  .post("/mail/non-auth", async (req, res) => {
+    const { user, consignment_name, qty } = req.body;
+
+    sendNonAuthConsignmentMail(user, consignment_name, qty).then((sented) => {
+      console.log(sented);
+      if (!sented) {
+        res.status(500).json({ message: "Error while sending mail" });
+      } else {
+        res.status(200).json({ message: "Mail sent" });
+      }
+    });
   });
 
 const port = process.env.PORT || 5001;

@@ -2,34 +2,21 @@ const sgMail = require("@sendgrid/mail");
 const dotenv = require("dotenv");
 dotenv.config();
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
-async function sendConsignmentEmail(email, name, consignment_name, qty) {
+async function sendNonAuthConsignmentMail(user, consignment_name, qty) {
+  console.log(user, consignment_name, qty);
   const msg = {
-    to: email, // Change to your recipient
+    to: user.email, // Change to your recipient
     from: "team@phirlo.in", // Change to your verified sender
-    subject: `Welcome to Phirlo | Your ${consignment_name} Pickup Requested `,
-    text: `Hey ${name}/n
+    subject: `Welcome to Phirlo | ‘${consignment_name}‘ Pickup Requested`,
 
-    Your pickup request on Phirlo for the consignment named '${consignment_name}' is received. Someone from Team Phirlo will contact you regarding the consignment. Request you to pack aside ____ clothes for the pickup.
-
-We look forward to your consignment 😃
-
-/n
-
-For assistance, please write back or dial 7338112475.
-
-/n
-
-*Shop More | Waste Less*
-
-*Team Phirlo*
-
-
-
-
-
-        `,
     html: `
-    <h1>Hey ${name}</h1>
+
+
+    <h1>Hey ${user.name}</h1>
+
+Your Phirlo account has been created. You can login with the following credentials:<br/>
+Email: ${user.email}<br/>
+Password: ${user.password}
 
 
     <p>
@@ -63,4 +50,4 @@ Team Phirlo
   }
 }
 
-module.exports = sendConsignmentEmail;
+module.exports = sendNonAuthConsignmentMail;
