@@ -24,9 +24,9 @@ app
     });
   })
   .post("/mail/consignment", (req, res) => {
-    const { email, name, consignment_name, qty } = req.body;
+    const { email, name, consignment_type qty } = req.body;
 
-    sendConsignmentEmail(email, name, consignment_name, qty)
+    sendConsignmentEmail(email, name, consignment_type, qty)
       .then((is_sented) => {
         console.log(is_sented);
         if (!is_sented) {
