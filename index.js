@@ -2,6 +2,7 @@ const express = require("express");
 const dotenv = require("dotenv");
 const sendmail = require("./utils/sendmail");
 const sendConsignmentEmail = require("./utils/consignment_mail");
+const sendResetPasswordLink = require("./utils/send_reset_password_email");
 const cors = require("cors");
 const sendCouponPurchaseEmail = require("./utils/coupon_purchase");
 const sendNonAuthConsignmentMail = require("./utils/non_auth_user_mail");
@@ -20,6 +21,17 @@ app
         res.status(500).json({ message: "Error while sending mail" });
       } else {
         res.status(200).json({ message: "Mail sent" });
+      }
+    });
+  })
+  .post("/reset", async (req, res) => {
+    const { email, token } = req.body;
+    console.log(email, token);
+    sendResetPasswordLink(email, token).then((sented) => {
+      if (sented) {
+        res.status(200).json({ message: "Link sent" });
+      } else {
+        res.status(500).json({ message: "Error while sending link" });
       }
     });
   })
