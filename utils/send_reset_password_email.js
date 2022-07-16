@@ -36,7 +36,7 @@ For assistance, please write back or dial 7338112475.
     Your Password Reset Link is here. <br/>
     <br/>
     
-    <a href="http://localhost:3000/reset_password?email=${email}&token=${token}" target="_blank">Reset Password</a>
+    <a href="https://phirlo.ooo/reset_password?email=${email}&token=${token}" target="_blank">Reset Password</a>
     <br/>
     <br/>
 
