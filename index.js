@@ -57,9 +57,9 @@ app
       });
   })
   .post("/mail/non-auth", async (req, res) => {
-    const { user, consignment_name, qty } = req.body;
+    const { user } = req.body;
 
-    sendNonAuthConsignmentMail(user, consignment_name, qty).then((sented) => {
+    sendNonAuthConsignmentMail(user).then((sented) => {
       console.log(sented);
       if (!sented) {
         res.status(500).json({ message: "Error while sending mail" });
@@ -69,7 +69,7 @@ app
     });
   });
 
-const port = process.env.PORT || 5001;
+const port = process.env.PORT || 5000;
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
