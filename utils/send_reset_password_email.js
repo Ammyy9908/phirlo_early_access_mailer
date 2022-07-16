@@ -11,7 +11,7 @@ async function sendResetPasswordLink(email, token) {
 
     Your Password Reset Link is here.
 
-    <a href="http://localhost:3000/reset_password?email=${email}&token=${token}" target="_blank">Reset Password</a>
+    <a href="https://phirlo.ooo/reset_password?email=${email}&token=${token}" target="_blank">Reset Password</a>
 
 /n
 
